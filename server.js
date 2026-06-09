@@ -111,6 +111,35 @@ app.post("/getReservoirStateChartData", async (req, res) => {
 
 });
 
+// ===================================
+// Connectivity Test
+// ===================================
+app.get("/test", async (req, res) => {
+
+    try {
+
+        const response = await axios.get(
+            "https://indiawris.gov.in",
+            {
+                timeout: 15000
+            }
+        );
+
+        res.json({
+            success: true,
+            status: response.status
+        });
+
+    } catch (err) {
+
+        res.status(500).json({
+            error: err.message
+        });
+
+    }
+
+});
+
 app.listen(PORT, () => {
 
     console.log(`Server running on port ${PORT}`);
